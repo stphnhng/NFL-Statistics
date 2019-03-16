@@ -183,7 +183,7 @@ def getTimeConversion():
             playArr = re.findall(r"[\w']+",str(play))
             quarterIndex = getFirstOccurrenceArr(playArr,'Q')
             if(quarterIndex != -1):
-                if (int(playArr[quarterIndex][1]) < 3) and ("two-point conversion" in str(play).lower()):
+                if (int(playArr[quarterIndex][1]) >= 3) and ("two-point conversion" in str(play).lower()):
                     teamAttemptedTwo[playArr[0]] = True
                     twoAttempted+=1
 
@@ -219,7 +219,6 @@ def highestScoreHalfTime(game):
     if(scoreTracker[game.home.lower()] < scoreTracker[game.away.lower()]):
         winningTeam = game.away
 
-    print(scoreTracker, winningTeam)
     return winningTeam
 
 def getFirstOccurrenceArr(arr, char):
@@ -229,6 +228,20 @@ def getFirstOccurrenceArr(arr, char):
                 return index
     return -1
 
+# percentage of games where a 2-point conversion was attempted.
+def percentageConversionAttempted():
+    conversionAttempted = 0
+    stopTracking = False
+    for game in games:
+        for play in game.drives.plays():
+            if ("two-point conversion" in str(play).lower()) and ( not stopTracking):
+                conversionAttempted+=1
+                stopTracking = True
+        stopTracking = False
+    print("number of games with a two-point conversion:",conversionAttempted)
+    print("percentage of games where two-point conversion attempted: ", float(conversionAttempted/len(games)))
+
+
 
 twoPointOnlyAttempt = 0
 twoPointOnlyScore = 0
@@ -236,7 +249,9 @@ twoPointOnlyScore = 0
 onePointOnlyAttempt = 0
 onePointOnlyScore = 0
 
-getTimeConversion()
+percentageConversionAttempted()
+
+#getTimeConversion()
 
 #conversionPerGame()
 
