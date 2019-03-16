@@ -6,6 +6,9 @@ This code will go through NFL Game Center's data on the 2017 NFL season and prin
 
 While this code is pretty ugly, I have hopefully written enough comprehensive comments to help understand the code. Furthermore, some statistics are saved from previous iterations of the program where it was too costly to keep in the code due to high runtime.
 
-usage: python GetData.py
+## Usage
 
-### Note: might need to use virtualenv in order to use modified nflgame if your computer already has it installed.
+Step 1.) python GetData.py
+comment in/out any functions you need to use.
+
+Note: might need to use virtualenv in order to use modified nflgame if your computer already has it installed.
